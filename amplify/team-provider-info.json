@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-gundi-dev-82135-authRole",
+            "UnauthRoleArn": "arn:aws:iam::034960529707:role/amplify-gundi-dev-82135-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::034960529707:role/amplify-gundi-dev-82135-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-gundi-dev-82135-deployment",
+            "UnauthRoleName": "amplify-gundi-dev-82135-unauthRole",
+            "StackName": "amplify-gundi-dev-82135",
+            "StackId": "arn:aws:cloudformation:us-east-1:034960529707:stack/amplify-gundi-dev-82135/e5b0d330-a330-11ea-b1b7-0e29088293c9",
+            "AmplifyAppId": "d38qfj5b3biayf"
+        }
+    }
+}
