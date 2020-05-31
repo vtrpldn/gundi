@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { IntlProvider } from "react-intl";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { FrontPage, SignUp } from "./pages";
+import { messages } from "./i18n";
 
-function App() {
+import Amplify, { Auth, Hub } from "aws-amplify";
+import awsconfig from "./aws-exports";
+Amplify.configure({
+  ...awsconfig,
+  oauth: {
+    ...awsconfig.oauth,
+    redirectSignIn: process.env.REACT_APP_SIGN_IN_REDIRECT_URL,
+    redirectSignOut: process.env.REACT_APP_SIGN_OUT_REDIRECT_URL,
+  },
+});
+
+export const UserContext = React.createContext({ user: null });
+
+const App = () => {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          setUser({ user: data });
+          break;
+        case "signOut":
+          setUser({ user: null });
+          break;
+        case "customOAuthState":
+          console.log("@@@ customOAuthState", { customState: data });
+          break;
+        default:
+          break;
+      }
+    });
+
+    Auth.currentAuthenticatedUser()
+      .then((user) => setUser({ user }))
+      .catch(() => console.log("Not signed in"));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={user}>
+      <IntlProvider locale='en-US' messages={messages["en-US"]}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' render={() => <FrontPage />}></Route>
+            <Route path='/signup' render={() => <SignUp />}></Route>
+            <Route path='/login' render={() => "log in"}></Route>
+            <Route path='/listing' render={() => "listing"}></Route>
+          </Switch>
+        </BrowserRouter>
+      </IntlProvider>
+    </UserContext.Provider>
   );
-}
+};
 
 export default App;

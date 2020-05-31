@@ -10,6 +10,19 @@
             "StackName": "amplify-gundi-dev-82135",
             "StackId": "arn:aws:cloudformation:us-east-1:034960529707:stack/amplify-gundi-dev-82135/e5b0d330-a330-11ea-b1b7-0e29088293c9",
             "AmplifyAppId": "d38qfj5b3biayf"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d38qfj5b3biayf",
+                    "type": "cicd"
+                }
+            },
+            "auth": {
+                "gundi1ca28a05": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"284653395906501\",\"client_secret\":\"f187f1d9ca4d10f159c63a4640efef2d\"},{\"ProviderName\":\"Google\",\"client_id\":\"310984059157-2nrqai8ja37gf6h6s99asdpkth621g1c.apps.googleusercontent.com\",\"client_secret\":\"DFbq_FqKcb1YHRb9srWDPbMX\"}]"
+                }
+            }
         }
     }
 }
